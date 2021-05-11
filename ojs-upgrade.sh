@@ -14,7 +14,7 @@ date=$( date +%Y-%m-%d )
 test -z "$1" && echo "Usage: $0 ~/$app-3.3.0-6.tar.gz" && exit 1
 test "$( id -u )" -ne 0 && echo "re-run as root: sudo $0 $*" && exit 1
 
-targz=$1
+targz=$( realpath $1 )
 
 tar_dir=$( basename $targz | sed 's/.tar.gz//')
 
