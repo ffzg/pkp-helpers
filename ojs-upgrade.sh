@@ -1,5 +1,9 @@
 #!/bin/sh -xe
 
+# invoke with:
+# sudo NO_BACKUP=1 ./omp-upgrade.sh ~/omp-3.3.0-6.tar.gz
+# to skip backup
+
 app=$( basename $0 | cut -d- -f1 )
 dir=/var/www/$app
 php=/usr/bin/php7.3
@@ -14,11 +18,12 @@ targz=$1
 
 tar_dir=$( basename $targz | sed 's/.tar.gz//')
 
-
+if [ -z "$NO_BACKUP" ] ; then
 echo "Backup $dir and $database_name"
 tar cfpz /tmp/$app-backup-$date.tar.gz $dir /srv/$app/
 mysqldump $database_name | gzip > /tmp/$app-backup-$date.sql.gz
 ls -al /tmp/$app-backup-$date*
+fi
 
 echo "Upgrade to $tar_dir"
 
