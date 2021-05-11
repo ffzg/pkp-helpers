@@ -11,7 +11,7 @@ test "$( id -u )" -ne 0 && echo "re-run as root: sudo $0 $*" && exit 1
 
 targz=$1
 
-tar_dir=$( basename ~/ojs-3.3.0-6.tar.gz | sed 's/.tar.gz//')
+tar_dir=$( basename $targz | sed 's/.tar.gz//')
 
 
 echo "Backup $dir and $database_name"
